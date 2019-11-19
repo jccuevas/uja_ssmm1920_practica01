@@ -1,7 +1,6 @@
 package com.example.pract_1;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -73,14 +72,15 @@ public class LoginFragment extends Fragment {
         if(fragment!=null){
             Button boton = fragment.findViewById(R.id.login_button);
             final EditText user = fragment.findViewById(R.id.login_user);
+            final EditText pass = fragment.findViewById(R.id.login_pass);
 
             boton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     String username = user.getEditableText().toString();
 
-                    User user = new User(username, "", "", 80);
-                    mListener.onFragmentInteraction(user);
+                    User user = new User(username, pass.getEditableText().toString(), "", 80);
+                    mListener.onLoginButton(user);
                     Toast.makeText(getActivity(),"Hola "+username,Toast.LENGTH_LONG).show();
                 }
             });
@@ -119,11 +119,14 @@ public class LoginFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(User user);
+        void onLoginButton(User user);
     }
 
     public class User{
-        protected String user;
+        public String user;
+        public String pass;
+        public String domain;
+        public short port;
 
 
         public User(String user,String pass, String ip, int port){}
