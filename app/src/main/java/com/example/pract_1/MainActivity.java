@@ -5,11 +5,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoginFragment.OnFragmentInteractionListener {
 
     private LoginFragment fragment;
 
@@ -31,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "YA HAY UNO", Toast.LENGTH_LONG).show();
         }
         ft.commit();
+
+    }
+
+    @Override
+    public void onFragmentInteraction(LoginFragment.User user) {
+        Intent intent = new Intent(this,Main2Activity.class);
+        intent.putExtra("data",user.getData());
+        startActivity(intent);
 
     }
 }

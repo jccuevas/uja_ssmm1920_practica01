@@ -78,6 +78,9 @@ public class LoginFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     String username = user.getEditableText().toString();
+
+                    User user = new User(username, "", "", 80);
+                    mListener.onFragmentInteraction(user);
                     Toast.makeText(getActivity(),"Hola "+username,Toast.LENGTH_LONG).show();
                 }
             });
@@ -85,22 +88,17 @@ public class LoginFragment extends Fragment {
         return fragment;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     @Override
@@ -121,6 +119,19 @@ public class LoginFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(User user);
+    }
+
+    public class User{
+        protected String user;
+
+
+        public User(String user,String pass, String ip, int port){}
+
+        public Bundle getData(){
+            Bundle data = new Bundle();
+            data.putString("user",user);
+            return data;
+        }
     }
 }
